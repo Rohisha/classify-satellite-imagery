@@ -29,9 +29,10 @@ bar_chart_data <- data.frame(names(tags_dist), tags_dist / total_labels * 100)
 rownames(bar_chart_data) <- NULL
 colnames(bar_chart_data) <- c("Label", "Percent of Training Sample")
 # Bar 
-pdf("label_distribution.pdf", width = , height = )
-ggplot(data = bar_chart_data, aes(x = Label, y = `Percent of Training Sample`)) + 
-  geom_bar(stat='identity', fill = "steelblue3")  + 
-  theme_bw() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+pdf("label_distribution.pdf", width = 7, height = 5)
+g <- ggplot(data = bar_chart_data, aes(x = reorder(Label, -`Percent of Training Sample`), y = `Percent of Training Sample`)) + 
+      geom_bar(stat='identity', fill = "steelblue3")  + ylim(0, 100) + xlab("") + 
+      theme_bw() +
+      theme(axis.text.x = element_text(angle = 45, hjust = 1))
+print(g)
 dev.off()
